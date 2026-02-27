@@ -86,6 +86,15 @@ async function callKimiAPI(messages) {
         return null;
     }
 
+    // 检测是否在本地开发环境
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    // 如果是GitHub Pages部署，使用演示模式
+    if (window.location.hostname.includes('github.io')) {
+        console.log('GitHub Pages 环境 - 使用演示模式');
+        return simulateAIResponse(messages);
+    }
+
     try {
         const response = await fetch('https://api.moonshot.cn/v1/chat/completions', {
             method: 'POST',
@@ -112,6 +121,34 @@ async function callKimiAPI(messages) {
         alert(`API 调用失败: ${error.message}`);
         return null;
     }
+}
+
+// ==================== 模拟AI响应（用于演示） ====================
+function simulateAIResponse(messages) {
+    const userMessage = messages.find(m => m.role === 'user')?.content || '';
+    const projectIdea = userMessage.match(/项目想法：(.+?)(?:\n|$)/)?.[1] || '未知项目';
+    
+    const mockResponse = {
+        overview: `这是一个关于"${projectIdea}"的创新项目。该项目具有明确的市场需求和良好的技术可行性。`,
+        feasibility: "项目整体可行性较高。建议先进行小规模试点，验证核心功能后再进行全面开发。",
+        conditions: [
+            { name: "技术栈选择", question: "需要哪些编程语言和框架？团队是否具备相关技能？" },
+            { name: "市场调研", question: "目标用户群体是谁？市场规模和竞争情况如何？" },
+            { name: "团队组建", question: "需要哪些角色？开发人员、设计师、产品经理？" },
+            { name: "预算规划", question: "开发和运营成本预估？资金来源是什么？" },
+            { name: "时间规划", question: "MVP版本预计多久完成？完整版本呢？" },
+            { name: "法律合规", question: "是否需要相关资质？隐私政策如何制定？" }
+        ],
+        phases: [
+            { name: "规划阶段", tasks: ["需求分析", "市场调研", "竞品分析", "制定项目计划"] },
+            { name: "设计阶段", tasks: ["原型设计", "UI/UX设计", "架构设计", "数据库设计"] },
+            { name: "开发阶段", tasks: ["前端开发", "后端开发", "API接口开发", "功能实现"] },
+            { name: "测试阶段", tasks: ["单元测试", "集成测试", "用户测试", "Bug修复"] },
+            { name: "部署阶段", tasks: ["服务器配置", "域名申请", "上线部署", "运营推广"] }
+        ]
+    };
+    
+    return JSON.stringify(mockResponse);
 }
 
 // ==================== 项目分析 ====================
