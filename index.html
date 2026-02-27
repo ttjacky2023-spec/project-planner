@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 项目管理规划工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 AI 项目管理规划工具</h1>
+            <p>智能分析项目需求，助您高效规划执行</p>
+        </header>
+
+        <!-- API 配置 -->
+        <section class="api-config" id="apiConfig">
+            <h2>🔑 API 配置</h2>
+            <div class="form-group">
+                <label for="kimiApiKey">Kimi API Key:</label>
+                <input type="password" id="kimiApiKey" placeholder="请输入您的 Kimi API Key">
+                <small>您的 API Key 仅存储在本地浏览器中</small>
+            </div>
+        </section>
+
+        <!-- 1. 初始想法输入 -->
+        <section class="section" id="ideaSection">
+            <h2>💡 1. 初始想法输入</h2>
+            <div class="form-group">
+                <label for="projectIdea">请输入您的项目想法：</label>
+                <textarea id="projectIdea" rows="4" placeholder="例如：我想开发一个在线学习平台，让用户可以学习各种编程课程..."></textarea>
+            </div>
+            <button id="analyzeBtn" class="btn-primary">AI 分析项目需求</button>
+            
+            <div id="analysisResult" class="result-box hidden">
+                <h3>📊 AI 分析结果</h3>
+                <div id="analysisContent"></div>
+            </div>
+            
+            <div id="conditionsList" class="conditions-box hidden">
+                <h3>📋 实现条件列表</h3>
+                <ul id="conditionsUl"></ul>
+            </div>
+        </section>
+
+        <!-- 2. 条件分析与提问 -->
+        <section class="section hidden" id="researchSection">
+            <h2>🔍 2. 条件分析与调研</h2>
+            <div id="researchQuestions"></div>
+            
+            <div class="progress-status">
+                <h3>调研进度</h3>
+                <div class="progress-bar">
+                    <div id="researchProgress" class="progress-fill"></div>
+                </div>
+                <p id="researchProgressText">0 / 0 条件已完成调研</p>
+            </div>
+            
+            <div id="researchCompleteMsg" class="alert alert-success hidden">
+                ✅ 所有条件调研完成！可以进入执行阶段了。
+            </div>
+        </section>
+
+        <!-- 3. 执行阶段规划 -->
+        <section class="section hidden" id="executionSection">
+            <h2>⚙️ 3. 执行阶段规划</h2>
+            
+            <div class="overall-progress">
+                <h3>项目总体进度</h3>
+                <div class="progress-bar large">
+                    <div id="overallProgress" class="progress-fill"></div>
+                </div>
+                <p id="overallProgressText">0%</p>
+            </div>
+
+            <div id="currentPhase" class="phase-box">
+                <h3 id="phaseTitle">当前阶段</h3>
+                <div id="phaseTasks"></div>
+            </div>
+        </section>
+
+        <!-- 4. 新进度提醒与任务列表 -->
+        <section class="section hidden" id="newPhaseSection">
+            <h2>📌 4. 任务管理</h2>
+            
+            <div id="phaseNotification" class="alert alert-info hidden">
+                <span id="phaseNotificationText"></span>
+            </div>
+
+            <div class="task-management">
+                <h3>任务列表</h3>
+                <div id="allTasks"></div>
+                
+                <div class="add-task-form">
+                    <input type="text" id="newTaskInput" placeholder="输入新任务名称">
+                    <select id="newTaskPhase">
+                        <option value="">选择阶段</option>
+                    </select>
+                    <button id="addTaskBtn" class="btn-secondary">添加任务</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目历史记录 -->
+        <section class="section" id="historySection">
+            <h2>📚 项目历史记录</h2>
+            <div class="history-controls">
+                <input type="text" id="projectName" placeholder="项目名称（用于保存）">
+                <button id="saveProjectBtn" class="btn-primary">保存项目</button>
+            </div>
+            
+            <div id="savedProjects">
+                <h3>已保存的项目</h3>
+                <div id="projectsList"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
